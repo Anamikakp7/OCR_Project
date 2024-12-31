@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Frontend</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>OCR Text Extraction</h1>
+        <form id="ocrForm" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="textInput">Enter Text:</label>
+                <input type="text" id="textInput" name="textInput" placeholder="Type your text here">
+            </div>
+            <div class="form-group">
+                <label for="imageInput">Upload an Image or PDF:</label>
+                <input type="file" id="imageInput" name="imageInput" accept="image/*,.pdf">
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="output">
+            <h2>OCR Output:</h2>
+            <p id="ocrResult">Your results will appear here.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('ocrForm').onsubmit = async function (e) {
+            e.preventDefault();
+            const formData = new FormData(document.getElementById('ocrForm'));
+            const response = await fetch('/process', {
+                method: 'POST',
+                body: formData,
+            });
+            const result = await response.json();
+            document.getElementById('ocrResult').textContent = result.text || 'No output received';
+        };
+    </script>
+</body>
+</html>
