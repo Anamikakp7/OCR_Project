@@ -1,1 +1,2 @@
+The OCR Flask Project is a web-based tool designed to extract text from images, PDFs, and manual text input. Built using the Flask framework, it leverages EasyOCR for text extraction from images and PyPDF2 for processing PDFs. Users can upload files or enter text manually via a responsive and user-friendly interface, with results displayed instantly. This lightweight and scalable project is implemented using Python, HTML, CSS, and JavaScript, making it easy to extend and integrate into other applications.
 # OCR_Project
