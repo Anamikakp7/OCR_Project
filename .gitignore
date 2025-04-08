@@ -1,16 +1,9 @@
-# Python
+# Python Environment
 __pycache__/
-*.py[cod]
+*.pyc
 *.pyo
-*.log
-
-# Environment
+*.pyd
 venv/
-.env
 
-# Uploads
+# Uploaded Files
 uploads/
-
-# System files
-.DS_Store
-Thumbs.db

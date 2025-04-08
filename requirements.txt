@@ -1,0 +1,4 @@
+flask
+easyocr
+pypdf2
+opencv-python

@@ -13,6 +13,7 @@
             <div class="form-group">
                 <label for="textInput">Enter Text:</label>
                 <input type="text" id="textInput" name="textInput" placeholder="Type your text here">
+                <button type="button" id="startRecordBtn">🎤 Speak</button>
             </div>
             <div class="form-group">
                 <label for="imageInput">Upload an Image or PDF:</label>
@@ -27,6 +28,44 @@
     </div>
 
     <script>
+        // Voice-to-text functionality
+        const startRecordBtn = document.getElementById('startRecordBtn');
+        const textInput = document.getElementById('textInput');
+
+        if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+
+            recognition.continuous = false; // Stop after one sentence
+            recognition.interimResults = false; // Only final results
+            recognition.lang = 'en-US'; // Set language
+
+            startRecordBtn.addEventListener('click', () => {
+                recognition.start();
+                startRecordBtn.textContent = 'Listening...';
+            });
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                textInput.value = transcript; // Set the transcribed text to the input field
+                startRecordBtn.textContent = '🎤 Speak';
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                startRecordBtn.textContent = '🎤 Speak';
+            };
+
+            recognition.onend = () => {
+                startRecordBtn.textContent = '🎤 Speak';
+            };
+        } else {
+            console.warn('Speech recognition not supported in this browser.');
+            startRecordBtn.disabled = true;
+            startRecordBtn.textContent = 'Speech Not Supported';
+        }
+
+        // OCR Form Submission
         document.getElementById('ocrForm').onsubmit = async function (e) {
             e.preventDefault();
             const formData = new FormData(document.getElementById('ocrForm'));
